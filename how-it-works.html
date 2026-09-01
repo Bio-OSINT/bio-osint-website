@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How it works — Bio-OSINT</title>
+<meta name="description" content="Bio-OSINT correlates public HPAI detection data against your named supplier sites and alerts you when a confirmed detection breaks your standoff radius.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  body { margin: 0; background: #fff; -webkit-font-smoothing: antialiased; }
+  a { color: oklch(0.24 0.015 250); text-decoration: none; }
+  a:hover { color: oklch(0.55 0.13 42); }
+</style>
+<style>
+  [data-hover] { transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease; }
+</style>
+</head>
+<body>
+<div style="font-family: 'IBM Plex Sans', sans-serif; color: oklch(0.24 0.015 250);">
+
+
+<div style="font-family: 'IBM Plex Sans', sans-serif; color: oklch(0.24 0.015 250);">
+
+  <header style="position: sticky; top: 0; z-index: 20; background: oklch(1 0 0 / 0.92); backdrop-filter: blur(10px); border-bottom: 1px solid oklch(0.91 0.006 250);">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 0 40px; height: 74px; display: flex; align-items: center; justify-content: space-between; gap: 32px;">
+      <a href="index.html" style="display: flex; align-items: center; gap: 11px; flex: none;">
+        <div style="position: relative; width: 28px; height: 28px; flex: none;">
+          <div style="position: absolute; inset: 0; border: 1.5px solid oklch(0.24 0.015 250); border-radius: 50%;"></div>
+          <div style="position: absolute; inset: 7.5px; border-radius: 50%; background: oklch(0.24 0.015 250);"></div>
+          <div style="position: absolute; right: -1px; top: -1px; width: 9px; height: 9px; border-radius: 50%; background: oklch(0.55 0.13 42); box-shadow: 0 0 0 2px #fff;"></div>
+        </div>
+        <div style="font-size: 18px; font-weight: 300; white-space: nowrap; letter-spacing: -0.01em;">Bio-<span style="font-weight: 600;">OSINT</span></div>
+      </a>
+      <nav style="display: flex; align-items: center; gap: 30px; flex: none; font-size: 13.5px; white-space: nowrap; color: oklch(0.42 0.015 250);">
+        <a href="how-it-works.html" style="color: oklch(0.24 0.015 250); font-weight: 500; border-bottom: 1px solid oklch(0.55 0.13 42); padding-bottom: 2px;">How it works</a>
+        <a href="index.html#coverage" style="color: inherit;">Coverage</a>
+        <a href="index.html#audience" style="color: inherit;">Insurers</a>
+        <a href="#contact" style="background: oklch(0.24 0.015 250); color: #fff; padding: 9px 16px; font-size: 13px; font-weight: 500; white-space: nowrap;" data-hover="background: oklch(0.55 0.13 42);">Request a briefing</a>
+      </nav>
+    </div>
+  </header>
+
+  <section style="border-bottom: 1px solid oklch(0.91 0.006 250);">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 88px 40px 76px; display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: 72px; align-items: end;">
+      <div style="display: flex; flex-direction: column; gap: 24px;">
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: oklch(0.55 0.02 250);">Method</div>
+        <h1 style="margin: 0; font-size: 52px; font-weight: 300; line-height: 1.08; letter-spacing: -0.03em; text-wrap: pretty;">How a public detection becomes <span style="font-weight: 600;">your problem</span>, on time.</h1>
+        <p style="margin: 0; font-size: 18px; line-height: 1.6; color: oklch(0.42 0.015 250); max-width: 560px; text-wrap: pretty;">Four stages between a state veterinarian publishing a confirmation and your procurement lead knowing which farms to call. Nothing here is proprietary data &mdash; the work is in the correlation and the speed.</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 1px; background: oklch(0.91 0.006 250); border: 1px solid oklch(0.91 0.006 250);">
+        <div style="background: oklch(0.985 0.003 250); padding: 20px 24px; display: flex; align-items: baseline; justify-content: space-between; gap: 16px;">
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: oklch(0.55 0.02 250);">Onboarding</span>
+          <span style="font-size: 15px; font-weight: 500;">Days, once</span>
+        </div>
+        <div style="background: oklch(0.985 0.003 250); padding: 20px 24px; display: flex; align-items: baseline; justify-content: space-between; gap: 16px;">
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: oklch(0.55 0.02 250);">Detection to alert</span>
+          <span style="font-size: 15px; font-weight: 500; color: oklch(0.55 0.13 42);">Within the hour</span>
+        </div>
+        <div style="background: oklch(0.985 0.003 250); padding: 20px 24px; display: flex; align-items: baseline; justify-content: space-between; gap: 16px;">
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: oklch(0.55 0.02 250);">Risk note</span>
+          <span style="font-size: 15px; font-weight: 500;">Weekly</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="border-bottom: 1px solid oklch(0.91 0.006 250);">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 0 40px;">
+
+      <div style="display: grid; grid-template-columns: 88px minmax(0, 1fr) minmax(0, 1fr); gap: 0; border-bottom: 1px solid oklch(0.91 0.006 250);">
+        <div style="padding: 56px 0 56px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 500; color: oklch(0.55 0.13 42);">01</div>
+        <div style="padding: 56px 48px 56px 0; display: flex; flex-direction: column; gap: 16px;">
+          <h2 style="margin: 0; font-size: 28px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.2;">Your supplier list becomes coordinates</h2>
+          <p style="margin: 0; font-size: 16px; line-height: 1.65; color: oklch(0.42 0.015 250); text-wrap: pretty;">You send the farms and facilities you actually buy from, in whatever form you keep them &mdash; a spreadsheet, a purchase-order export, a list in an email. We geocode each site, resolve the ones with ambiguous or shared names, and send the resolved list back for your sign-off.</p>
+          <p style="margin: 0; font-size: 15px; line-height: 1.65; color: oklch(0.5 0.02 250); text-wrap: pretty;">This is the step nobody else does, and it's why we do it by hand: a proximity system built on a wrong pin is worse than no system.</p>
+        </div>
+        <div style="padding: 56px 0 56px 48px; border-left: 1px solid oklch(0.91 0.006 250); display: flex; flex-direction: column; gap: 1px; align-self: start;">
+          <div style="background: oklch(0.985 0.003 250); border: 1px solid oklch(0.91 0.006 250); padding: 18px 20px; display: flex; align-items: center; justify-content: space-between; gap: 20px;">
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: oklch(0.32 0.015 250);">Hollis Ridge Farm</span>
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: oklch(0.55 0.02 250);">35.0412, &minus;77.9163</span>
+          </div>
+          <div style="background: oklch(0.985 0.003 250); border: 1px solid oklch(0.91 0.006 250); border-top: none; padding: 18px 20px; display: flex; align-items: center; justify-content: space-between; gap: 20px;">
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: oklch(0.32 0.015 250);">Trent Valley Layer</span>
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: oklch(0.55 0.02 250);">35.1877, &minus;77.6021</span>
+          </div>
+          <div style="background: #fff; border: 1px solid oklch(0.55 0.13 42 / 0.4); border-top: none; padding: 18px 20px; display: flex; align-items: center; justify-content: space-between; gap: 20px;">
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: oklch(0.32 0.015 250);">Kinsey Broiler #2</span>
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: oklch(0.55 0.13 42);">2 matches &mdash; confirm</span>
+          </div>
+          <div style="padding: 14px 2px 0; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; line-height: 1.7; color: oklch(0.58 0.02 250);">Ambiguities come back to you, never guessed.</div>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 88px minmax(0, 1fr) minmax(0, 1fr); gap: 0; border-bottom: 1px solid oklch(0.91 0.006 250);">
+        <div style="padding: 56px 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 500; color: oklch(0.55 0.13 42);">02</div>
+        <div style="padding: 56px 48px 56px 0; display: flex; flex-direction: column; gap: 16px;">
+          <h2 style="margin: 0; font-size: 28px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.2;">We monitor the public record continuously</h2>
+          <p style="margin: 0; font-size: 16px; line-height: 1.65; color: oklch(0.42 0.015 250); text-wrap: pretty;">Federal confirmations, state quarantine and control-zone orders, wild-bird surveillance sampling, and human-case reporting all publish on different schedules and in different shapes. We normalise them into one event stream with a location, a date, a flock type, and a source citation.</p>
+          <p style="margin: 0; font-size: 15px; line-height: 1.65; color: oklch(0.5 0.02 250); text-wrap: pretty;">Every alert we send carries the citation, so your team can verify it against the primary source in one click.</p>
+        </div>
+        <div style="padding: 56px 0 56px 48px; border-left: 1px solid oklch(0.91 0.006 250); display: flex; flex-direction: column; gap: 12px; align-self: start;">
+          <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding-bottom: 12px; border-bottom: 1px solid oklch(0.91 0.006 250);">
+            <span style="font-size: 15px; font-weight: 500;">USDA APHIS</span>
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: oklch(0.55 0.02 250);">Confirmed detections</span>
+          </div>
+          <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding-bottom: 12px; border-bottom: 1px solid oklch(0.91 0.006 250);">
+            <span style="font-size: 15px; font-weight: 500;">State ag departments</span>
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: oklch(0.55 0.02 250);">Zone &amp; movement orders</span>
+          </div>
+          <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding-bottom: 12px; border-bottom: 1px solid oklch(0.91 0.006 250);">
+            <span style="font-size: 15px; font-weight: 500;">Wild bird surveillance</span>
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: oklch(0.55 0.02 250);">Flyway sampling</span>
+          </div>
+          <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px;">
+            <span style="font-size: 15px; font-weight: 500;">CDC</span>
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: oklch(0.55 0.02 250);">Spillover &amp; human cases</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 88px minmax(0, 1fr) minmax(0, 1fr); gap: 0; border-bottom: 1px solid oklch(0.91 0.006 250);">
+        <div style="padding: 56px 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 500; color: oklch(0.55 0.13 42);">03</div>
+        <div style="padding: 56px 48px 56px 0; display: flex; flex-direction: column; gap: 16px;">
+          <h2 style="margin: 0; font-size: 28px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.2;">Proximity correlation against your standoff radius</h2>
+          <p style="margin: 0; font-size: 16px; line-height: 1.65; color: oklch(0.42 0.015 250); text-wrap: pretty;">Each new event is measured against every one of your sites. You choose the radius that matters &mdash; most operators run a 10-mile watch and a 3-mile escalation, roughly matching the control-zone conventions regulators use.</p>
+          <p style="margin: 0; font-size: 15px; line-height: 1.65; color: oklch(0.5 0.02 250); text-wrap: pretty;">County boundaries are noise: a detection can be 40 miles from your farm in the same county, or 3 miles away across a state line. We measure distance, not jurisdiction.</p>
+        </div>
+        <div style="padding: 40px 0 48px 48px; border-left: 1px solid oklch(0.91 0.006 250); display: flex; align-items: center; justify-content: center;">
+          <div style="position: relative; width: 260px; height: 260px;">
+            <div style="position: absolute; inset: 0; border: 1px dashed oklch(0.24 0.015 250 / 0.25); border-radius: 50%;"></div>
+            <div style="position: absolute; inset: 62px; border: 1px solid oklch(0.24 0.015 250 / 0.4); border-radius: 50%;"></div>
+            <div style="position: absolute; left: 4px; top: 116px; font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: 0.1em; text-transform: uppercase; color: oklch(0.58 0.02 250); background: #fff; padding: 2px 4px; transform: translateX(-100%);">10 mi</div>
+            <div style="position: absolute; left: 66px; top: 116px; font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: 0.1em; text-transform: uppercase; color: oklch(0.58 0.02 250); background: #fff; padding: 2px 4px; transform: translateX(-100%);">3 mi</div>
+            <div style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; gap: 9px;">
+              <span style="width: 13px; height: 13px; background: oklch(0.24 0.015 250);"></span>
+              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; white-space: nowrap; color: oklch(0.32 0.015 250);">Your site</span>
+            </div>
+            <div style="position: absolute; right: 34px; top: 44px; width: 12px; height: 12px; border-radius: 50%; background: oklch(0.55 0.13 42); box-shadow: 0 0 0 3px #fff;"></div>
+            <div style="position: absolute; right: -6px; top: 22px; font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; color: oklch(0.55 0.13 42); white-space: nowrap;">4.2 mi &mdash; alert</div>
+            <div style="position: absolute; left: -2px; bottom: 26px; width: 10px; height: 10px; border-radius: 50%; background: oklch(0.72 0.02 250); box-shadow: 0 0 0 3px #fff;"></div>
+            <div style="position: absolute; left: -14px; bottom: 2px; font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; color: oklch(0.58 0.02 250); white-space: nowrap;">13 mi &mdash; logged only</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 88px minmax(0, 1fr) minmax(0, 1fr); gap: 0;">
+        <div style="padding: 56px 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 500; color: oklch(0.55 0.13 42);">04</div>
+        <div style="padding: 56px 48px 56px 0; display: flex; flex-direction: column; gap: 16px;">
+          <h2 style="margin: 0; font-size: 28px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.2;">An analyst writes the procurement read</h2>
+          <p style="margin: 0; font-size: 16px; line-height: 1.65; color: oklch(0.42 0.015 250); text-wrap: pretty;">The alert is automatic; the interpretation isn't. Every breach gets a short human note: which of your sites are exposed, what share of weekly volume that represents, what the state order is likely to do next, and what we'd do about it this week.</p>
+          <p style="margin: 0; font-size: 15px; line-height: 1.65; color: oklch(0.5 0.02 250); text-wrap: pretty;">While the cohort is small, that's a person who knows your supply chain. As the pipeline matures, the routine parts move into the dashboard and the analyst stays for the judgement calls.</p>
+        </div>
+        <div style="padding: 56px 0 56px 48px; border-left: 1px solid oklch(0.91 0.006 250); display: flex; flex-direction: column; gap: 1px; background: oklch(0.91 0.006 250); align-self: start;">
+          <div style="background: #fff; padding: 22px 24px; display: flex; flex-direction: column; gap: 7px;">
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: oklch(0.58 0.02 250);">Immediate</span>
+            <span style="font-size: 15px; line-height: 1.55; color: oklch(0.32 0.015 250);">Proximity alert, with citation &mdash; within the hour of publication</span>
+          </div>
+          <div style="background: #fff; padding: 22px 24px; display: flex; flex-direction: column; gap: 7px;">
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: oklch(0.58 0.02 250);">Same day</span>
+            <span style="font-size: 15px; line-height: 1.55; color: oklch(0.32 0.015 250);">Exposure summary &mdash; sites in range, volume at risk, likely zone duration</span>
+          </div>
+          <div style="background: #fff; padding: 22px 24px; display: flex; flex-direction: column; gap: 7px;">
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: oklch(0.58 0.02 250);">Weekly</span>
+            <span style="font-size: 15px; line-height: 1.55; color: oklch(0.32 0.015 250);">Procurement-risk note across your whole supplier base</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section style="border-bottom: 1px solid oklch(0.91 0.006 250);">
+    <div style="display: grid; grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr); align-items: stretch;">
+      <div style="display: flex; align-items: center; padding: 96px 64px; background: oklch(0.985 0.003 250);">
+        <div style="max-width: 520px; display: flex; flex-direction: column; gap: 22px;">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: oklch(0.55 0.02 250);">What we don't do</div>
+          <h2 style="margin: 0; font-size: 32px; font-weight: 300; line-height: 1.18; letter-spacing: -0.02em; text-wrap: pretty;">We're a reading of the public record, not an <span style="font-weight: 600;">authority</span> on it.</h2>
+          <div style="display: flex; flex-direction: column; gap: 14px; margin-top: 4px;">
+            <div style="display: flex; gap: 13px; font-size: 15.5px; line-height: 1.6; color: oklch(0.42 0.015 250);"><span style="color: oklch(0.72 0.02 250); flex: none;">&mdash;</span><span>We don't test flocks, diagnose, or confirm detections ourselves.</span></div>
+            <div style="display: flex; gap: 13px; font-size: 15.5px; line-height: 1.6; color: oklch(0.42 0.015 250);"><span style="color: oklch(0.72 0.02 250); flex: none;">&mdash;</span><span>We don't issue regulatory guidance or replace your state veterinarian.</span></div>
+            <div style="display: flex; gap: 13px; font-size: 15.5px; line-height: 1.6; color: oklch(0.42 0.015 250);"><span style="color: oklch(0.72 0.02 250); flex: none;">&mdash;</span><span>We don't share your supplier list, ever &mdash; NDA before onboarding.</span></div>
+          </div>
+        </div>
+      </div>
+      <div style="position: relative; min-width: 0; min-height: 480px;">
+        <div style="position: absolute; inset: 0; background: oklch(0.24 0.015 250); display: flex; align-items: center; justify-content: center; overflow: hidden;"><div style="position: absolute; inset: 0; background-image: linear-gradient(oklch(1 0 0 / 0.05) 1px, transparent 1px), linear-gradient(90deg, oklch(1 0 0 / 0.05) 1px, transparent 1px); background-size: 40px 40px;"></div><div style="position: relative; text-align: center; padding: 24px; max-width: 320px;"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: oklch(0.65 0.015 250); line-height: 1.7;">Photo placeholder<br>Analyst workspace or surveillance map</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" style="background: oklch(0.24 0.015 250); color: #fff;">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 96px 40px; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: 72px; align-items: center;">
+      <div style="display: flex; flex-direction: column; gap: 22px;">
+        <h2 style="margin: 0; font-size: 40px; font-weight: 300; line-height: 1.12; letter-spacing: -0.025em; text-wrap: pretty;">Run the method against your <span style="font-weight: 600;">last 30 days</span>.</h2>
+        <p style="margin: 0; font-size: 17px; line-height: 1.65; color: oklch(0.82 0.01 250); max-width: 500px; text-wrap: pretty;">Send us your supplier list under NDA and we'll show you every alert you would have received last month &mdash; with the distances, the citations, and the volume exposure. Thirty minutes, no obligation.</p>
+        <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 6px;">
+          <a href="index.html#contact" style="background: #fff; color: oklch(0.24 0.015 250); padding: 15px 26px; font-size: 14.5px; font-weight: 500; white-space: nowrap;" data-hover="background: oklch(0.65 0.14 42); color: #fff;">Request a briefing</a>
+          <a href="index.html" style="border: 1px solid oklch(1 0 0 / 0.35); color: #fff; padding: 15px 26px; font-size: 14.5px; font-weight: 500; white-space: nowrap;" data-hover="border-color: #fff;">Back to overview</a>
+        </div>
+      </div>
+      <div style="border: 1px solid oklch(1 0 0 / 0.18); padding: 34px; display: flex; flex-direction: column; gap: 18px;">
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: oklch(0.7 0.015 250);">What we'll need</div>
+        <div style="display: flex; flex-direction: column; gap: 15px; font-size: 15px; line-height: 1.55; color: oklch(0.88 0.008 250);">
+          <div style="display: flex; gap: 12px;"><span style="color: oklch(0.65 0.14 42); flex: none;">01</span><span>Farm and facility names you buy from</span></div>
+          <div style="display: flex; gap: 12px;"><span style="color: oklch(0.65 0.14 42); flex: none;">02</span><span>Rough weekly volume by site, if you have it</span></div>
+          <div style="display: flex; gap: 12px;"><span style="color: oklch(0.65 0.14 42); flex: none;">03</span><span>Who should receive alerts, and how fast</span></div>
+        </div>
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; line-height: 1.7; color: oklch(0.68 0.015 250); padding-top: 4px; border-top: 1px solid oklch(1 0 0 / 0.15);">A spreadsheet is fine. Most lists take us under a day to resolve.</div>
+      </div>
+    </div>
+  </section>
+
+  <footer style="background: oklch(0.24 0.015 250); border-top: 1px solid oklch(1 0 0 / 0.12); color: oklch(0.78 0.01 250);">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 34px 40px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 28px;">
+      <div style="display: flex; align-items: center; gap: 11px; flex: none;">
+        <div style="position: relative; width: 24px; height: 24px; flex: none;">
+          <div style="position: absolute; inset: 0; border: 1px solid oklch(1 0 0 / 0.45); border-radius: 50%;"></div>
+          <div style="position: absolute; inset: 6.5px; border-radius: 50%; background: #fff;"></div>
+        </div>
+        <div style="font-size: 15px; font-weight: 300; white-space: nowrap; color: #fff;">Bio-<span style="font-weight: 600;">OSINT</span></div>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 28px; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase;">
+        <a href="index.html" style="color: inherit;">Overview</a>
+        <a href="index.html#coverage" style="color: inherit;">Sources</a>
+        <a href="#contact" style="color: inherit;">Contact</a>
+      </div>
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: oklch(0.62 0.015 250);">Biosecurity intelligence &middot; 2026</div>
+    </div>
+  </footer>
+
+</div>
+
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('[data-hover]').forEach(function(el) {
+    var base = el.getAttribute('style') || '';
+    var hover = el.getAttribute('data-hover');
+    el.addEventListener('mouseenter', function() { el.setAttribute('style', base + ';' + hover); });
+    el.addEventListener('mouseleave', function() { el.setAttribute('style', base); });
+  });
+});
+</script>
+</body>
+</html>
