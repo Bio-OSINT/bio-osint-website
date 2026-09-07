@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 64" width="260" height="64" role="img" aria-label="FlockGuard">
+  <title>FlockGuard</title>
+  <path d="M11 35.5 q7.5 -10.5 15 0 q7.5 -10.5 15 0" fill="none" stroke="#1B3A6B" stroke-width="4.6" stroke-linecap="round"/>
+  <path d="M41.6 16.4 A22 22 0 0 1 41.6 47.6" fill="none" stroke="#F5A623" stroke-width="4.2" stroke-linecap="round"/>
+  <path d="M47.9 10.1 A31 31 0 0 1 47.9 53.9" fill="none" stroke="#F5A623" stroke-width="4.2" stroke-linecap="round" opacity="0.45"/>
+  <text x="70" y="41.5" font-family="'IBM Plex Sans','Helvetica Neue',Arial,sans-serif" font-size="27" letter-spacing="-0.3" fill="#1B3A6B"><tspan font-weight="300">Flock</tspan><tspan font-weight="600">Guard</tspan></text>
+</svg>

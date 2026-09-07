@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>How it works — Bio-OSINT</title>
 <meta name="description" content="Bio-OSINT correlates public HPAI detection data against your named supplier sites and alerts you when a confirmed detection breaks your standoff radius.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="mask-icon" href="icon-flockguard.svg" color="#1B3A6B">
+<meta name="theme-color" content="#1B3A6B">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -15,6 +18,104 @@
 </style>
 <style>
   [data-hover] { transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease; }
+</style>
+<style>
+  /* --- Mobile pass (<=768px). The page uses inline styles, so these
+       overrides are !important by necessity, keyed off the inline
+       declarations they replace. --- */
+  img { max-width: 100%; }
+  .bo-navtoggle { display: none; }
+
+  @media (max-width: 768px) {
+    /* Nav collapses to a hamburger */
+    .bo-navtoggle { display: inline-flex !important; }
+    .bo-nav {
+      display: none !important;
+      position: absolute; left: 0; right: 0; top: 100%;
+      flex-direction: column !important; align-items: stretch !important;
+      gap: 0 !important; white-space: normal !important;
+      background: #fff; border-bottom: 1px solid oklch(0.91 0.006 250);
+      box-shadow: 0 14px 28px oklch(0.24 0.015 250 / 0.10);
+      padding: 6px 22px 20px !important;
+    }
+    .bo-nav.bo-open { display: flex !important; }
+    .bo-nav > a {
+      padding: 15px 2px !important; font-size: 15.5px !important;
+      border-bottom: 1px solid oklch(0.94 0.005 250);
+    }
+    .bo-nav > a:last-child {
+      border-bottom: 0; margin-top: 14px;
+      padding: 15px 18px !important; text-align: center;
+    }
+
+    /* Every desktop column set becomes a single column */
+    [style*="grid-template-columns"]:not(.bo-keep2) {
+      grid-template-columns: minmax(0, 1fr) !important;
+    }
+    [style*="gap: 72px"], [style*="gap: 64px"] { gap: 36px !important; }
+
+    /* Dividers between side-by-side halves become horizontal */
+    [style*="border-right: 1px solid oklch(0.91 0.006 250)"] {
+      border-right: 0 !important;
+      border-bottom: 1px solid oklch(0.91 0.006 250) !important;
+    }
+    [style*="border-left: 1px solid oklch(0.91 0.006 250)"] {
+      border-left: 0 !important;
+      border-top: 1px solid oklch(0.91 0.006 250) !important;
+    }
+
+    /* Page gutters */
+    [style*="max-width: 1200px"] {
+      padding-left: 22px !important; padding-right: 22px !important;
+    }
+    [style*="padding: 100px 40px"], [style*="padding: 96px 40px"],
+    [style*="padding: 88px 40px"], [style*="padding: 80px 0"],
+    [style*="padding: 72px 40px"], [style*="padding: 64px 40px"],
+    [style*="padding: 56px 40px"] {
+      padding-top: 56px !important; padding-bottom: 56px !important;
+    }
+    [style*="padding: 96px 64px"] { padding: 52px 22px !important; }
+    [style*="padding: 56px 48px 56px 0"],
+    [style*="padding: 56px 0 56px 48px"],
+    [style*="padding: 40px 0 48px 48px"],
+    [style*="padding: 56px 0"] { padding: 40px 0 !important; }
+    [style*="padding: 40px;"] { padding: 28px 24px !important; }
+    [style*="padding: 36px 32px 40px"] { padding: 30px 24px 34px !important; }
+    [style*="padding: 34px;"] { padding: 28px 22px !important; }
+    [style*="padding: 32px 26px 26px"] { padding: 26px 20px 22px !important; }
+    [style*="padding: 18px 26px"] { padding: 16px 20px !important; }
+    [style*="padding: 16px 18px"] { padding: 14px 14px !important; }
+
+    /* Decorative hero panel: 8 absolutely-positioned labels do not
+       survive a 375px column, so it is dropped rather than squashed */
+    .bo-hero-visual { display: none !important; }
+
+    /* Tall desktop sections */
+    [style*="min-height: 620px"] { min-height: 0 !important; }
+    [style*="min-height: 460px"], [style*="min-height: 480px"] {
+      min-height: 240px !important;
+    }
+
+    /* Display type */
+    [style*="font-size: 58px"] { font-size: 35px !important; }
+    [style*="font-size: 52px"] { font-size: 33px !important; }
+    [style*="font-size: 46px"] { font-size: 32px !important; }
+    [style*="font-size: 42px"] { font-size: 30px !important; }
+    [style*="font-size: 40px"] { font-size: 29px !important; }
+    [style*="font-size: 38px"] { font-size: 28px !important; }
+    [style*="font-size: 34px"] { font-size: 26px !important; }
+    [style*="font-size: 32px"] { font-size: 25px !important; }
+    [style*="font-size: 24px"] { font-size: 21px !important; }
+    [style*="font-size: 18.5px"] { font-size: 17px !important; }
+
+    /* Footer stacks left-aligned instead of straggling */
+    .bo-footer-row { gap: 22px !important; }
+  }
+
+  @media (max-width: 400px) {
+    .bo-brandword { display: none !important; }
+    .bo-brandtag { padding-left: 9px !important; margin-left: 2px !important; }
+  }
 </style>
 </head>
 <body>
@@ -28,9 +129,10 @@
           <div style="position: absolute; inset: 7.5px; border-radius: 50%; background: oklch(0.24 0.015 250);"></div>
           <div style="position: absolute; right: -1px; top: -1px; width: 9px; height: 9px; border-radius: 50%; background: oklch(0.55 0.13 42); box-shadow: 0 0 0 2px #fff;"></div>
         </div>
-        <div style="font-size: 18px; font-weight: 300; white-space: nowrap; letter-spacing: -0.01em;">Bio-<span style="font-weight: 600;">OSINT</span></div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: oklch(0.55 0.13 42); white-space: nowrap; padding-left: 11px; margin-left: 2px; border-left: 1px solid oklch(0.86 0.01 250);">FlockGuard</div>
+        <div style="font-size: 18px; font-weight: 300; white-space: nowrap; letter-spacing: -0.01em;">Bio-<span style="font-weight: 600;">OSINT</span></div><div class="bo-brandtag" style="display: flex; align-items: center; gap: 7px; padding-left: 12px; margin-left: 3px; border-left: 1px solid oklch(0.86 0.01 250);"><svg width="21" height="21" viewBox="0 0 64 64" aria-hidden="true" style="flex: none; display: block;"><path d="M11 35.5 q7.5 -10.5 15 0 q7.5 -10.5 15 0" fill="none" stroke="#1B3A6B" stroke-width="4.6" stroke-linecap="round"/><path d="M41.6 16.4 A22 22 0 0 1 41.6 47.6" fill="none" stroke="#F5A623" stroke-width="4.2" stroke-linecap="round"/><path d="M47.9 10.1 A31 31 0 0 1 47.9 53.9" fill="none" stroke="#F5A623" stroke-width="4.2" stroke-linecap="round" opacity="0.45"/></svg><span class="bo-brandword" style="font-size: 14.5px; font-weight: 300; letter-spacing: -0.01em; white-space: nowrap; color: #1B3A6B;">Flock<span style="font-weight: 600;">Guard</span></span></div>
       </a>
-      <nav style="display: flex; align-items: center; gap: 30px; flex: none; font-size: 13.5px; white-space: nowrap; color: oklch(0.42 0.015 250);">
+      <button class="bo-navtoggle" id="bo-navtoggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="bo-nav" style="background: transparent; border: 1px solid oklch(0.86 0.01 250); width: 42px; height: 42px; align-items: center; justify-content: center; cursor: pointer; flex: none; padding: 0;"><span style="position: relative; display: block; width: 16px; height: 10px;"><span style="position: absolute; left: 0; top: 0px; width: 16px; height: 1.5px; background: oklch(0.24 0.015 250);"></span><span style="position: absolute; left: 0; top: 4.25px; width: 16px; height: 1.5px; background: oklch(0.24 0.015 250);"></span><span style="position: absolute; left: 0; top: 8.5px; width: 16px; height: 1.5px; background: oklch(0.24 0.015 250);"></span></span></button>
+      <nav class="bo-nav" id="bo-nav" style="display: flex; align-items: center; gap: 30px; flex: none; font-size: 13.5px; white-space: nowrap; color: oklch(0.42 0.015 250);">
         <a href="how-it-works.html" style="color: oklch(0.24 0.015 250); font-weight: 500; border-bottom: 1px solid oklch(0.55 0.13 42); padding-bottom: 2px;">How it works</a>
         <a href="index.html#coverage" style="color: inherit;">Coverage</a>
         <a href="index.html#audience" style="color: inherit;">Insurers</a>
@@ -211,7 +313,7 @@
   </section>
 
   <footer style="background: oklch(0.24 0.015 250); border-top: 1px solid oklch(1 0 0 / 0.12); color: oklch(0.88 0.01 250);">
-    <div style="max-width: 1200px; margin: 0 auto; padding: 34px 40px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 28px;">
+    <div class="bo-footer-row" style="max-width: 1200px; margin: 0 auto; padding: 34px 40px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 28px;">
       <div style="display: flex; align-items: center; gap: 11px; flex: none;">
         <div style="position: relative; width: 24px; height: 24px; flex: none;">
           <div style="position: absolute; inset: 0; border: 1px solid oklch(1 0 0 / 0.45); border-radius: 50%;"></div>
@@ -226,7 +328,7 @@
         <a href="#contact" style="color: inherit;">Contact</a>
         <a href="mailto:ethan@bio-osint.com" style="color: inherit;">ethan@bio-osint.com</a>
       </div>
-      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: oklch(0.82 0.015 250);">FlockGuard &middot; Biosecurity intelligence &middot; 2026</div>
+      <div style="display: flex; align-items: center; gap: 9px;"><svg width="20" height="20" viewBox="0 0 64 64" aria-hidden="true" style="flex: none; display: block;"><path d="M11 35.5 q7.5 -10.5 15 0 q7.5 -10.5 15 0" fill="none" stroke="#FFFFFF" stroke-width="4.6" stroke-linecap="round"/><path d="M41.6 16.4 A22 22 0 0 1 41.6 47.6" fill="none" stroke="#F5A623" stroke-width="4.2" stroke-linecap="round"/><path d="M47.9 10.1 A31 31 0 0 1 47.9 53.9" fill="none" stroke="#F5A623" stroke-width="4.2" stroke-linecap="round" opacity="0.5"/></svg><span style="font-size: 14px; font-weight: 300; letter-spacing: -0.01em; color: #fff;">Flock<span style="font-weight: 600;">Guard</span></span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: oklch(0.82 0.015 250); padding-left: 4px;">&middot; Biosecurity intelligence &middot; 2026</span></div>
     </div>
   </footer>
 
@@ -241,6 +343,22 @@ document.addEventListener('DOMContentLoaded', function() {
     el.addEventListener('mouseleave', function() { el.setAttribute('style', base); });
   });
 });
+
+(function () {
+  var t = document.getElementById('bo-navtoggle');
+  var n = document.getElementById('bo-nav');
+  if (!t || !n) return;
+  t.addEventListener('click', function () {
+    var open = n.classList.toggle('bo-open');
+    t.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  n.addEventListener('click', function (e) {
+    if (e.target.closest('a')) {
+      n.classList.remove('bo-open');
+      t.setAttribute('aria-expanded', 'false');
+    }
+  });
+})();
 </script>
 </body>
 </html>
