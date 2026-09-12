@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HPAI Detection Map — FlockGuard by Bio-OSINT</title>
+<meta name="description" content="Current USDA APHIS confirmed HPAI detections in the contiguous US, with waterfowl flyway context. Public map, no login. See what's near your suppliers.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="mask-icon" href="icon-flockguard.svg" color="#1B3A6B">
+<meta name="theme-color" content="#1B3A6B">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" integrity="sha512-h9FcoyWjHcOcmEVkxOfTLnmZFWIH0iZhZT1H2TbOq55xssQGEJHEaIm+PgoUaZbRvQTNTluNOEfb1ZRy6D3BOw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.min.css" integrity="sha512-ENrTWqddXrLJsQS2A86QmvA17PkJ0GVm1bqj5aTgpeMAfDKN2+SIOLpKG8R/6KkimnhTb+VW5qqUHB/r1zaRgg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<style>
+  body { margin: 0; background: #fff; -webkit-font-smoothing: antialiased; }
+  a { color: oklch(0.24 0.015 250); text-decoration: none; }
+  a:hover { color: oklch(0.55 0.13 42); }
+</style>
+<style>
+  [data-hover] { transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease; }
+</style>
+<style>
+  /* --- Mobile pass (<=768px). The page uses inline styles, so these
+       overrides are !important by necessity, keyed off the inline
+       declarations they replace. --- */
+  img { max-width: 100%; }
+  .bo-navtoggle { display: none; }
+
+  @media (max-width: 768px) {
+    /* Nav collapses to a hamburger */
+    .bo-navtoggle { display: inline-flex !important; }
+    .bo-nav {
+      display: none !important;
+      position: absolute; left: 0; right: 0; top: 100%;
+      flex-direction: column !important; align-items: stretch !important;
+      gap: 0 !important; white-space: normal !important;
+      background: #fff; border-bottom: 1px solid oklch(0.91 0.006 250);
+      box-shadow: 0 14px 28px oklch(0.24 0.015 250 / 0.10);
+      padding: 6px 22px 20px !important;
+    }
+    .bo-nav.bo-open { display: flex !important; }
+    .bo-nav > a {
+      padding: 15px 2px !important; font-size: 15.5px !important;
+      border-bottom: 1px solid oklch(0.94 0.005 250);
+    }
+    .bo-nav > a:last-child {
+      border-bottom: 0; margin-top: 14px;
+      padding: 15px 18px !important; text-align: center;
+    }
+
+    /* Every desktop column set becomes a single column */
+    [style*="grid-template-columns"]:not(.bo-keep2) {
+      grid-template-columns: minmax(0, 1fr) !important;
+    }
+    [style*="gap: 72px"], [style*="gap: 64px"] { gap: 36px !important; }
+
+    /* Dividers between side-by-side halves become horizontal */
+    [style*="border-right: 1px solid oklch(0.91 0.006 250)"] {
+      border-right: 0 !important;
+      border-bottom: 1px solid oklch(0.91 0.006 250) !important;
+    }
+    [style*="border-left: 1px solid oklch(0.91 0.006 250)"] {
+      border-left: 0 !important;
+      border-top: 1px solid oklch(0.91 0.006 250) !important;
+    }
+
+    /* Page gutters */
+    [style*="max-width: 1200px"] {
+      padding-left: 22px !important; padding-right: 22px !important;
+    }
+    [style*="padding: 100px 40px"], [style*="padding: 96px 40px"],
+    [style*="padding: 88px 40px"], [style*="padding: 80px 0"],
+    [style*="padding: 72px 40px"], [style*="padding: 64px 40px"],
+    [style*="padding: 56px 40px"] {
+      padding-top: 56px !important; padding-bottom: 56px !important;
+    }
+    [style*="padding: 96px 64px"] { padding: 52px 22px !important; }
+    [style*="padding: 56px 48px 56px 0"],
+    [style*="padding: 56px 0 56px 48px"],
+    [style*="padding: 40px 0 48px 48px"],
+    [style*="padding: 56px 0"] { padding: 40px 0 !important; }
+    [style*="padding: 40px;"] { padding: 28px 24px !important; }
+    [style*="padding: 36px 32px 40px"] { padding: 30px 24px 34px !important; }
+    [style*="padding: 34px;"] { padding: 28px 22px !important; }
+    [style*="padding: 32px 26px 26px"] { padding: 26px 20px 22px !important; }
+    [style*="padding: 18px 26px"] { padding: 16px 20px !important; }
+    [style*="padding: 16px 18px"] { padding: 14px 14px !important; }
+
+    /* Decorative hero panel: 8 absolutely-positioned labels do not
+       survive a 375px column, so it is dropped rather than squashed */
+    .bo-hero-visual { display: none !important; }
+
+    /* Tall desktop sections */
+    [style*="min-height: 620px"] { min-height: 0 !important; }
+    [style*="min-height: 460px"], [style*="min-height: 480px"] {
+      min-height: 240px !important;
+    }
+
+    /* Display type */
+    [style*="font-size: 58px"] { font-size: 35px !important; }
+    [style*="font-size: 52px"] { font-size: 33px !important; }
+    [style*="font-size: 46px"] { font-size: 32px !important; }
+    [style*="font-size: 42px"] { font-size: 30px !important; }
+    [style*="font-size: 40px"] { font-size: 29px !important; }
+    [style*="font-size: 38px"] { font-size: 28px !important; }
+    [style*="font-size: 34px"] { font-size: 26px !important; }
+    [style*="font-size: 32px"] { font-size: 25px !important; }
+    [style*="font-size: 24px"] { font-size: 21px !important; }
+    [style*="font-size: 18.5px"] { font-size: 17px !important; }
+
+    /* Footer stacks left-aligned instead of straggling */
+    .bo-footer-row { gap: 22px !important; }
+  }
+
+  @media (max-width: 400px) {
+    .bo-brandword { display: none !important; }
+    .bo-brandtag { padding-left: 9px !important; margin-left: 2px !important; }
+  }
+</style>
+<style>
+  /* --- Map page --- */
+  .bo-map-shell { display: grid; grid-template-columns: minmax(0, 1fr) 360px; min-height: calc(100vh - 74px - 57px); }
+  .bo-map-col { position: relative; min-width: 0; }
+  #map { position: absolute; inset: 0; background: oklch(0.985 0.003 250); }
+  .bo-side { border-left: 1px solid oklch(0.91 0.006 250); background: #fff; display: flex; flex-direction: column; }
+  .bo-side-body { padding: 28px 28px 24px; display: flex; flex-direction: column; gap: 22px; flex: 1; }
+  .bo-cta { background: oklch(0.24 0.015 250); color: #fff; padding: 26px 26px 24px; }
+  .bo-window { font-family: 'IBM Plex Sans', sans-serif; font-size: 14px; color: oklch(0.24 0.015 250); background: #fff; border: 1px solid oklch(0.86 0.01 250); padding: 8px 10px; }
+  .leaflet-container { font-family: 'IBM Plex Sans', sans-serif; }
+  .leaflet-popup-content { font-size: 13.5px; line-height: 1.55; margin: 12px 14px; }
+  .leaflet-popup-content-wrapper { border-radius: 4px; }
+  .bo-legend { background: oklch(1 0 0 / 0.94); backdrop-filter: blur(6px); border: 1px solid oklch(0.91 0.006 250); padding: 12px 14px; font-size: 12px; line-height: 1.5; color: oklch(0.24 0.015 250); min-width: 172px; }
+  .bo-legend h4 { margin: 0 0 6px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: oklch(0.52 0.02 250); font-weight: 500; }
+  .bo-legend .row { display: flex; align-items: center; gap: 8px; }
+  .bo-legend .dot { width: 11px; height: 11px; border-radius: 50%; border: 1.5px solid #fff; box-shadow: 0 0 0 1px oklch(0 0 0 / 0.15); flex: none; }
+  .bo-legend .sw { width: 14px; height: 10px; flex: none; border: 1px solid oklch(0 0 0 / 0.12); }
+  .bo-legend-toggle { display: none; }
+  .flyway-label { background: transparent; border: none; box-shadow: none; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: oklch(0.42 0.015 250); text-shadow: 0 0 3px #fff, 0 0 3px #fff; pointer-events: none; }
+  .bo-cluster { display: flex; align-items: center; justify-content: center; border-radius: 50%; color: #fff; font-weight: 600; font-size: 13px; border: 2px solid rgba(255,255,255,.9); box-shadow: 0 1px 4px rgba(0,0,0,.3); }
+  .bo-sev { display: inline-block; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.1em; padding: 2px 7px; color: #fff; font-weight: 600; }
+  @media (max-width: 768px) {
+    .bo-page { display: flex; flex-direction: column; height: calc(100vh - 74px); height: calc(100dvh - 74px); }
+    .bo-toolbar { flex: none; }
+    .bo-map-shell { display: flex; flex-direction: column; flex: 1; min-height: 0; }
+    .bo-map-col { flex: 1; min-height: 0; }
+    .bo-side { flex: none; }
+    .bo-side { border-left: none; border-top: 1px solid oklch(0.91 0.006 250); }
+    .bo-side-body { padding: 0; gap: 0; }
+    .bo-side .bo-cta { padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+    .bo-side .bo-cta h2 { font-size: 15px !important; margin: 0 !important; }
+    .bo-side .bo-cta p { display: none; }
+    .bo-side .bo-cta a { padding: 11px 16px !important; flex: none; }
+    .bo-side .bo-about { display: none !important; }
+    .flyway-label { display: none; }  /* collides with clusters at phone width; legend carries the flyways */
+    .bo-side .bo-attr { padding: 12px 20px; font-size: 11px !important; }
+    .bo-legend { display: none; }
+    .bo-legend.open { display: block; }
+    .bo-legend-toggle { display: block; background: oklch(1 0 0 / 0.94); border: 1px solid oklch(0.91 0.006 250); font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; padding: 7px 10px; cursor: pointer; color: oklch(0.24 0.015 250); }
+    .bo-toolbar > div { padding: 10px 16px !important; gap: 8px !important; }
+    .bo-toolbar h1 { font-size: 15px !important; }
+    .bo-toolbar .bo-eyebrow { display: none; }
+    .bo-toolbar label { gap: 8px !important; }
+    .bo-toolbar label > span:first-child { display: none; }
+    .bo-window { padding: 6px 8px; font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+<div style="font-family: 'IBM Plex Sans', sans-serif; color: oklch(0.24 0.015 250);">
+
+  <header style="position: sticky; top: 0; z-index: 20; background: oklch(1 0 0 / 0.92); backdrop-filter: blur(10px); border-bottom: 1px solid oklch(0.91 0.006 250);">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 0 40px; height: 74px; display: flex; align-items: center; justify-content: space-between; gap: 32px;">
+      <a href="index.html" style="display: flex; align-items: center; gap: 11px; flex: none;">
+        <div style="position: relative; width: 28px; height: 28px; flex: none;">
+          <div style="position: absolute; inset: 0; border: 1.5px solid oklch(0.24 0.015 250); border-radius: 50%;"></div>
+          <div style="position: absolute; inset: 7.5px; border-radius: 50%; background: oklch(0.24 0.015 250);"></div>
+          <div style="position: absolute; right: -1px; top: -1px; width: 9px; height: 9px; border-radius: 50%; background: oklch(0.55 0.13 42); box-shadow: 0 0 0 2px #fff;"></div>
+        </div>
+        <div style="font-size: 18px; font-weight: 300; white-space: nowrap; letter-spacing: -0.01em;">Bio-<span style="font-weight: 600;">OSINT</span></div><div class="bo-brandtag" style="display: flex; align-items: center; gap: 7px; padding-left: 12px; margin-left: 3px; border-left: 1px solid oklch(0.86 0.01 250);"><svg width="21" height="21" viewBox="0 0 64 64" aria-hidden="true" style="flex: none; display: block;"><path d="M11 35.5 q7.5 -10.5 15 0 q7.5 -10.5 15 0" fill="none" stroke="#1B3A6B" stroke-width="4.6" stroke-linecap="round"/><path d="M41.6 16.4 A22 22 0 0 1 41.6 47.6" fill="none" stroke="#F5A623" stroke-width="4.2" stroke-linecap="round"/><path d="M47.9 10.1 A31 31 0 0 1 47.9 53.9" fill="none" stroke="#F5A623" stroke-width="4.2" stroke-linecap="round" opacity="0.45"/></svg><span class="bo-brandword" style="font-size: 14.5px; font-weight: 300; letter-spacing: -0.01em; white-space: nowrap; color: #1B3A6B;">Flock<span style="font-weight: 600;">Guard</span></span></div>
+      </a>
+      <button class="bo-navtoggle" id="bo-navtoggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="bo-nav" style="background: transparent; border: 1px solid oklch(0.86 0.01 250); width: 42px; height: 42px; align-items: center; justify-content: center; cursor: pointer; flex: none; padding: 0;"><span style="position: relative; display: block; width: 16px; height: 10px;"><span style="position: absolute; left: 0; top: 0px; width: 16px; height: 1.5px; background: oklch(0.24 0.015 250);"></span><span style="position: absolute; left: 0; top: 4.25px; width: 16px; height: 1.5px; background: oklch(0.24 0.015 250);"></span><span style="position: absolute; left: 0; top: 8.5px; width: 16px; height: 1.5px; background: oklch(0.24 0.015 250);"></span></span></button>
+      <nav class="bo-nav" id="bo-nav" style="display: flex; align-items: center; gap: 30px; flex: none; font-size: 13.5px; white-space: nowrap; color: oklch(0.42 0.015 250);">
+        <a href="how-it-works.html" style="color: inherit;">How it works</a>
+        <a href="index.html#coverage" style="color: inherit;">Coverage</a>
+        <a href="index.html#audience" style="color: inherit;">Insurers</a>
+        <a href="pricing.html" style="color: inherit;">Pricing</a>
+        <a href="map.html" style="color: oklch(0.24 0.015 250); font-weight: 500; border-bottom: 1px solid oklch(0.55 0.13 42); padding-bottom: 2px;">Map</a>
+        <a href="index.html#contact" style="background: oklch(0.24 0.015 250); color: #fff; padding: 9px 16px; font-size: 13px; font-weight: 500; white-space: nowrap;" data-hover="background: oklch(0.55 0.13 42);">Request a briefing</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="bo-page">
+  <div class="bo-toolbar" style="border-bottom: 1px solid oklch(0.91 0.006 250); background: #fff;">
+    <div style="max-width: 100%; padding: 16px 28px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px;">
+      <div style="display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap;">
+        <div class="bo-eyebrow" style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: oklch(0.52 0.02 250);">Detection map</div>
+        <h1 style="margin: 0; font-size: 20px; font-weight: 500; letter-spacing: -0.015em;">Confirmed HPAI detections, contiguous US</h1>
+      </div>
+      <label style="display: flex; align-items: center; gap: 10px; font-size: 13px; color: oklch(0.42 0.015 250);">
+        <span>Detection window</span>
+        <select id="bo-window" class="bo-window" aria-label="Detection window">
+          <option value="30">Last 30 days</option>
+          <option value="60">Last 60 days</option>
+          <option value="90" selected>Last 90 days</option>
+        </select>
+        <span id="bo-count" style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: oklch(0.52 0.02 250);"></span>
+      </label>
+    </div>
+  </div>
+
+  <div class="bo-map-shell">
+    <div class="bo-map-col">
+      <div id="map" role="region" aria-label="Map of confirmed HPAI detections"></div>
+    </div>
+    <aside class="bo-side">
+      <div class="bo-side-body">
+        <div class="bo-cta">
+          <h2 style="margin: 0 0 10px; font-size: 21px; font-weight: 300; line-height: 1.2; letter-spacing: -0.02em; text-wrap: pretty;">Seeing detections near <span style="font-weight: 600;">your suppliers</span>?</h2>
+          <p style="margin: 0 0 16px; font-size: 14px; line-height: 1.6; color: oklch(0.88 0.01 250); text-wrap: pretty;">Send us your supplier list &mdash; we'll show you last month's alerts specific to your farms. 30 minutes, no obligation.</p>
+          <a href="index.html#contact" style="display: inline-block; background: #fff; color: oklch(0.24 0.015 250); padding: 12px 20px; font-size: 14px; font-weight: 500; white-space: nowrap;" data-hover="background: oklch(0.65 0.14 42); color: #fff;">Request a briefing</a>
+        </div>
+        <div class="bo-about" style="display: flex; flex-direction: column; gap: 10px; font-size: 13.5px; line-height: 1.6; color: oklch(0.42 0.015 250);">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: oklch(0.52 0.02 250);">Reading the map</div>
+          <p style="margin: 0; text-wrap: pretty;">Each point is one USDA-confirmed detection, placed at its county centroid. Colour is the severity tier FlockGuard would assign given the poultry processing facilities in and around that county &mdash; recency and proximity, not case count.</p>
+          <p style="margin: 0; text-wrap: pretty;">Shaded regions are the four administrative waterfowl flyways. Migration phase in each popup is the continental calendar window for that date.</p>
+        </div>
+        <div class="bo-attr" style="margin-top: auto; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; line-height: 1.7; letter-spacing: 0.04em; color: oklch(0.52 0.02 250);">
+          Detection data: USDA APHIS &middot; Flyway boundaries: USFWS &middot; Updated <span id="bo-updated">&mdash;</span>
+        </div>
+      </div>
+    </aside>
+  </div>
+  </div>
+
+  <div style="border-top: 1px solid oklch(0.91 0.006 250); background: oklch(0.985 0.003 250);">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 16px 28px; font-size: 12px; line-height: 1.6; color: oklch(0.52 0.02 250); text-wrap: pretty;">
+      This map displays publicly available USDA APHIS confirmed HPAI detections. Locations are shown at the county centroid &mdash; exact farm locations are not published by USDA. Data updates with each scheduled pull.
+    </div>
+  </div>
+
+  <footer style="background: oklch(0.24 0.015 250); border-top: 1px solid oklch(1 0 0 / 0.12); color: oklch(0.88 0.01 250);">
+    <div class="bo-footer-row" style="max-width: 1200px; margin: 0 auto; padding: 34px 40px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 28px;">
+      <div style="display: flex; align-items: center; gap: 11px; flex: none;">
+        <div style="position: relative; width: 24px; height: 24px; flex: none;">
+          <div style="position: absolute; inset: 0; border: 1px solid oklch(1 0 0 / 0.45); border-radius: 50%;"></div>
+          <div style="position: absolute; inset: 6.5px; border-radius: 50%; background: #fff;"></div>
+        </div>
+        <div style="font-size: 15px; font-weight: 300; white-space: nowrap; color: #fff;">Bio-<span style="font-weight: 600;">OSINT</span></div>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 28px; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase;">
+        <a href="index.html" style="color: inherit;">Overview</a>
+        <a href="how-it-works.html" style="color: inherit;">How it works</a>
+        <a href="index.html#coverage" style="color: inherit;">Sources</a>
+        <a href="index.html#contact" style="color: inherit;">Contact</a>
+        <a href="mailto:ethan@bio-osint.com" style="color: inherit;">ethan@bio-osint.com</a>
+      </div>
+      <div style="display: flex; align-items: center; gap: 9px;"><svg width="20" height="20" viewBox="0 0 64 64" aria-hidden="true" style="flex: none; display: block;"><path d="M11 35.5 q7.5 -10.5 15 0 q7.5 -10.5 15 0" fill="none" stroke="#FFFFFF" stroke-width="4.6" stroke-linecap="round"/><path d="M41.6 16.4 A22 22 0 0 1 41.6 47.6" fill="none" stroke="#F5A623" stroke-width="4.2" stroke-linecap="round"/><path d="M47.9 10.1 A31 31 0 0 1 47.9 53.9" fill="none" stroke="#F5A623" stroke-width="4.2" stroke-linecap="round" opacity="0.5"/></svg><span style="font-size: 14px; font-weight: 300; letter-spacing: -0.01em; color: #fff;">Flock<span style="font-weight: 600;">Guard</span></span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: oklch(0.82 0.015 250); padding-left: 4px;">&middot; Biosecurity intelligence &middot; 2026</span></div>
+    </div>
+  </footer>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" integrity="sha512-puJW3E/qXDqYp9IfhAI54BJEaWIfloJ7JWs7OeD5i6ruC9JZL1gERT1wjtwXFlh7CjE7ZJ+/vcRZRkIYIb6p4g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/leaflet.markercluster.min.js" integrity="sha512-TiMWaqipFi2Vqt4ugRzsF8oRoGFlFFuqIi30FFxEPNw58Ov9mOy6LgC05ysfkxwLE0xVeZtmr92wVg9siAFRWA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('[data-hover]').forEach(function(el) {
+    var base = el.getAttribute('style') || '';
+    var hover = el.getAttribute('data-hover');
+    el.addEventListener('mouseenter', function() { el.setAttribute('style', base + ';' + hover); });
+    el.addEventListener('mouseleave', function() { el.setAttribute('style', base); });
+  });
+});
+
+(function () {
+  var t = document.getElementById('bo-navtoggle');
+  var n = document.getElementById('bo-nav');
+  if (!t || !n) return;
+  t.addEventListener('click', function () {
+    var open = n.classList.toggle('bo-open');
+    t.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  n.addEventListener('click', function (e) {
+    if (e.target.closest('a')) {
+      n.classList.remove('bo-open');
+      t.setAttribute('aria-expanded', 'false');
+    }
+  });
+})();
+</script>
+<script>
+(function () {
+  // Severity palette for the PUBLIC map (spec'd separately from the
+  // internal dashboard's palette). Rank order LOW..URGENT drives cluster colour.
+  var SEV = {
+    URGENT: { color: '#C0392B', rank: 3, label: 'Urgent' },
+    HIGH:   { color: '#F5A623', rank: 2, label: 'High' },
+    MEDIUM: { color: '#F1C40F', rank: 1, label: 'Medium' },
+    LOW:    { color: '#95A5A6', rank: 0, label: 'Low' }
+  };
+  var SEV_BY_RANK = ['#95A5A6', '#F1C40F', '#F5A623', '#C0392B'];
+  var FLYWAY = {
+    'Atlantic Flyway':    '#4A6FA5',
+    'Mississippi Flyway': '#5B8C5A',
+    'Central Flyway':     '#B5834A',
+    'Pacific Flyway':     '#7A5C99'
+  };
+  var PHASE = {
+    PEAK_FALL: 'Peak fall migration', FALL_MIGRATION: 'Fall migration',
+    PEAK_SPRING: 'Peak spring migration', SPRING_MIGRATION: 'Spring migration',
+    LOW_RISK: 'Low migration activity'
+  };
+  function esc(s) { return String(s == null ? '\u2014' : s).replace(/[&<>"']/g, function (c) { return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]; }); }
+  function fmtDate(iso) { var d = new Date(iso + 'T00:00:00'); return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }); }
+
+  var CONUS = L.latLngBounds([24.4, -125.0], [49.4, -66.9]);
+  var map = L.map('map', { zoomControl: true, scrollWheelZoom: false, attributionControl: true });
+  map.fitBounds(CONUS, { padding: [8, 8] });
+  window.addEventListener('resize', function () { map.invalidateSize(); });
+  map.on('focus', function () { map.scrollWheelZoom.enable(); });
+  map.on('blur',  function () { map.scrollWheelZoom.disable(); });
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 12, attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(map);
+
+  // ---- flyways ----
+  var flywayLayer = L.geoJSON(null, {
+    style: function (f) { var c = FLYWAY[f.properties.name] || '#888'; return { color: c, weight: 1, opacity: 0.45, fillColor: c, fillOpacity: 0.10 }; },
+    interactive: false
+  }).addTo(map);
+  // Labels at fixed CONUS anchors: the Pacific polygon includes Alaska and
+  // the Atlantic one is mostly ocean, so their geometric centres sit off
+  // the default view. These points are inside each flyway at zoom 4.
+  var FLYWAY_ANCHORS = {
+    'Pacific Flyway':     [43.5, -117.5],
+    'Central Flyway':     [41.5, -101.5],
+    'Mississippi Flyway': [37.0, -90.5],
+    'Atlantic Flyway':    [36.0, -78.5]
+  };
+  Object.keys(FLYWAY_ANCHORS).forEach(function (name) {
+    L.tooltip({ permanent: true, direction: 'center', className: 'flyway-label', interactive: false })
+      .setLatLng(FLYWAY_ANCHORS[name]).setContent(name).addTo(map);
+  });
+
+  // ---- detections ----
+  var clusters = L.markerClusterGroup({
+    maxClusterRadius: 44, showCoverageOnHover: false, spiderfyOnMaxZoom: true,
+    iconCreateFunction: function (cluster) {
+      var kids = cluster.getAllChildMarkers(), maxRank = 0;
+      for (var i = 0; i < kids.length; i++) { var r = kids[i].options.severityRank; if (typeof r === 'number' && r > maxRank) maxRank = r; }
+      return L.divIcon({ html: '<div class="bo-cluster" style="background:' + SEV_BY_RANK[maxRank] + ';width:38px;height:38px;">' + cluster.getChildCount() + '</div>', className: '', iconSize: L.point(38, 38) });
+    }
+  }).addTo(map);
+
+  var allFeatures = [];
+  function popupHtml(p) {
+    var s = SEV[p.severity] || SEV.LOW;
+    return '<div style="font-family:\'IBM Plex Mono\',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:oklch(0.52 0.02 250);margin-bottom:6px;">Confirmed detection</div>' +
+      '<div style="font-size:15px;font-weight:500;margin-bottom:6px;">' + esc(p.county) + ' County, ' + esc(p.state) + '</div>' +
+      '<div><b>Species:</b> ' + esc(p.species) + (p.flock_type ? ' <span style="color:oklch(0.52 0.02 250)">(' + esc(p.flock_type) + ')</span>' : '') + '</div>' +
+      '<div><b>Detected:</b> ' + esc(fmtDate(p.detection_date)) + '</div>' +
+      '<div style="margin:6px 0;"><b>Severity:</b> <span class="bo-sev" style="background:' + s.color + (p.severity === 'MEDIUM' ? ';color:#1a1a1a' : '') + '">' + esc(p.severity) + '</span></div>' +
+      '<div><b>Flyway:</b> ' + esc(p.flyway) + '</div>' +
+      '<div><b>Migration phase:</b> ' + esc(p.migration_phase ? (PHASE[p.migration_phase] || p.migration_phase) : null) + '</div>';
+  }
+  function render(windowDays) {
+    clusters.clearLayers();
+    var cutoff = new Date(); cutoff.setHours(0,0,0,0); cutoff.setDate(cutoff.getDate() - windowDays);
+    var n = 0;
+    allFeatures.forEach(function (f) {
+      var p = f.properties;
+      if (new Date(p.detection_date + 'T00:00:00') < cutoff) return;
+      var s = SEV[p.severity] || SEV.LOW;
+      var m = L.circleMarker([f.geometry.coordinates[1], f.geometry.coordinates[0]], {
+        radius: 8, color: '#fff', weight: 1.5, fillColor: s.color, fillOpacity: 0.95, severityRank: s.rank
+      }).bindPopup(popupHtml(p), { maxWidth: 280 });
+      clusters.addLayer(m); n++;
+    });
+    document.getElementById('bo-count').textContent = n + (n === 1 ? ' detection' : ' detections');
+  }
+
+  // ---- legend (bottom-right control) ----
+  var legend = L.control({ position: 'bottomright' });
+  legend.onAdd = function () {
+    var wrap = L.DomUtil.create('div');
+    var btn = L.DomUtil.create('button', 'bo-legend-toggle', wrap); btn.type = 'button'; btn.textContent = 'Legend'; btn.setAttribute('aria-expanded', 'false');
+    var box = L.DomUtil.create('div', 'bo-legend', wrap);
+    var h = '<h4>Severity</h4>';
+    ['URGENT','HIGH','MEDIUM','LOW'].forEach(function (k) { h += '<div class="row"><span class="dot" style="background:' + SEV[k].color + '"></span>' + SEV[k].label + '</div>'; });
+    h += '<h4 style="margin-top:10px;">Flyways</h4>';
+    Object.keys(FLYWAY).forEach(function (k) { h += '<div class="row"><span class="sw" style="background:' + FLYWAY[k] + '; opacity:.55"></span>' + k.replace(' Flyway','') + '</div>'; });
+    box.innerHTML = h;
+    L.DomEvent.disableClickPropagation(wrap); L.DomEvent.disableScrollPropagation(wrap);
+    btn.addEventListener('click', function () { var open = box.classList.toggle('open'); btn.setAttribute('aria-expanded', open ? 'true' : 'false'); });
+    return wrap;
+  };
+  legend.addTo(map);
+
+  // ---- data ----
+  fetch('data/flyway.geojson').then(function (r) { return r.json(); }).then(function (gj) { flywayLayer.addData(gj); })
+    .catch(function () { /* map still works without the overlay */ });
+  fetch('data/detections.geojson').then(function (r) { return r.json(); }).then(function (gj) {
+    allFeatures = gj.features || [];
+    var upd = gj.properties && gj.properties.last_pull_at;
+    document.getElementById('bo-updated').textContent = upd ? fmtDate(upd) : '\u2014';
+    render(parseInt(document.getElementById('bo-window').value, 10));
+  }).catch(function () {
+    document.getElementById('bo-count').textContent = 'Detection data unavailable';
+  });
+  document.getElementById('bo-window').addEventListener('change', function (e) { render(parseInt(e.target.value, 10)); });
+})();
+</script>
+</body>
+</html>
